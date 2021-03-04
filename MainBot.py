@@ -40,7 +40,6 @@ def vk_sender(id_chat, message):
 
 from subprocess import Popen
 Popen('python Zulip_getter.py')
-from subprocess import Popen
 Popen('python VK_getter.py')
 
 print("Started")
