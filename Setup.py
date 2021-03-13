@@ -52,7 +52,7 @@ def enter_data():
         f.write(line1 + token + "\n" + line2 + id_group + "\n" + line3 + way_to_file)
 
         
-os.system("pip install tkinter")
+os.system("pip install tk")
 os.system("pip install requests")
 os.system("pip install vk_api")
 os.system("pip install zulip")
