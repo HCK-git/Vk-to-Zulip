@@ -4,7 +4,7 @@ import zulip
 from vk_api.bot_longpoll import VkBotLongPoll
 
 def file_read():
-    """"Функция file_read получает информацию из файла private_inform"""
+    """Функция file_read получает информацию из файла private_inform"""
 
     with open('privat_inform.txt') as f:
         line1 = f.readline()
