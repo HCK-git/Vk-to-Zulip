@@ -51,6 +51,11 @@ def enter_data():
     with open(os.getcwd()+"/Data/privat_inform.txt", "w") as f:
         f.write(line1 + token + "\n" + line2 + id_group + "\n" + line3 + way_to_file)
 
+        
+os.system("pip install tkinter")
+os.system("pip install requests")
+os.system("pip install vk_api")
+os.system("pip install zulip")
 
 link1 = "https://raw.githubusercontent.com/HCK-git/Vk-to-Zulip/main/MainBot.py"
 link2 = "https://raw.githubusercontent.com/HCK-git/Vk-to-Zulip/main/VK_getter.py"
