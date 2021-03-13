@@ -89,10 +89,6 @@ root.mainloop()
 
 root = Tk()
 root.title("id_group")
-w = root.winfo_screenwidth()
-h = root.winfo_screenheight()
-w = w // 2 - 200
-h = h // 2 - 200
 root.geometry('400x400+{}+{}'.format(w, h))
 entry = Entry()
 entry.pack(pady=10)
@@ -103,10 +99,6 @@ root.mainloop()
 
 root = Tk()
 root.title("way_to_file")
-w = root.winfo_screenwidth()
-h = root.winfo_screenheight()
-w = w // 2 - 200
-h = h // 2 - 200
 root.geometry('400x400+{}+{}'.format(w, h))
 entry = Entry()
 entry.pack(pady=10)
