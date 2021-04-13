@@ -148,7 +148,7 @@ with socket.socket() as sock:
                     with open("Data/Settings.txt", "w") as f:
                         all = all.replace("display_recipient_bool: False", "display_recipient_bool: True")
                         f.write(all)
-                elif start is True and ('/include email False' in message_from_zulip) \
+                elif start is True and ('/include email false' in message_from_zulip) \
                         and user_email_bool == 'True':
                     include_email = False
                     zulip_sender('Теперь в сообщении не будет указываться email пользователя')
