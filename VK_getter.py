@@ -6,7 +6,7 @@ from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 def file_read():
     """"Функция file_read получает информацию из файла private_inform"""
 
-    with open('privat_inform.txt') as f:
+    with open('Data/private_inform.txt') as f:
         line1 = f.readline()
         arrline1 = line1.split()
         main_token_from_file = arrline1[1]
@@ -29,7 +29,7 @@ def vk_getter():
     for event in longpoll.listen():
         if event.type == VkBotEventType.MESSAGE_NEW and event.from_chat:
             id_chat = event.chat_id
-            with open("id_chat.txt","w") as f:
+            with open("Data/id_chat.txt", "w") as f:
                 f.write(str(id_chat))
             user_id = event.message.get('from_id')
             message_vk = event.message.get('text')
@@ -55,4 +55,3 @@ while True:
         with socket.create_connection(("127.0.0.1", 10002)) as sock:
             sock.sendall(message_from_vk.encode("utf8"))
         old_message_from_vk = message_from_vk
-

@@ -6,7 +6,7 @@ import time
 def file_read():
     """"Функция file_read получает информацию из файла private_inform"""
 
-    with open('privat_inform.txt') as f:
+    with open('Data/private_inform.txt') as f:
         line1 = f.readline()
         arrline1 = line1.split()
         main_token_from_file = arrline1[1]
@@ -25,7 +25,7 @@ def zulip_getter():
        <сообщение пользователя>"
        Для работы функции не требуются входные данные"""
 
-    with open("Settings.txt", "r") as f:
+    with open("Data/Settings.txt", "r") as f:
         line1 = f.readline()
         arrline1 = line1.split()
         user_email_bool = arrline1[1]
@@ -80,3 +80,4 @@ while True:
         with socket.create_connection(("127.0.0.1", 10002)) as sock:
             sock.sendall(message_from_zulip.encode("utf8"))
         old_message_from_zulip = message_from_zulip
+        print(old_message_from_zulip)

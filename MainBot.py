@@ -6,7 +6,7 @@ from vk_api.bot_longpoll import VkBotLongPoll
 def file_read():
     """Функция file_read получает информацию из файла private_inform"""
 
-    with open('privat_inform.txt') as f:
+    with open('Data/private_inform.txt') as f:
         line1 = f.readline()
         arrline1 = line1.split()
         main_token_from_file = arrline1[1]
@@ -65,9 +65,10 @@ help_message = "/start - запускает бота\n" \
                " из которого пришло сообшение\n" \
                "/include subject true(false) - добавление в сообщение темы канала Zulip, из которого пришло сообщение\n"
 
-with open("id_chat.txt", "r") as f:
+with open("Data/id_chat.txt", "r") as f:
     id_chat = f.readline()
-with open("Settings.txt", "w") as f:
+    print(id_chat)
+with open("Data/Settings.txt", "w") as f:
     f.write("user_email_bool: False\n")
     f.write("subject_bool: False\n")
     f.write("display_recipient_bool: False\n")
@@ -85,9 +86,11 @@ with socket.socket() as sock:
 
             length = len(data)
             position = data.find('\n')
+            if not('\n' in data):
+                position = data.find('4')
             text = data[position+1:length]
 
-            with open("Settings.txt", "r") as f:
+            with open("Data/Settings.txt", "r") as f:
                 line1 = f.readline()
                 arrline1 = line1.split()
                 user_email_bool = arrline1[1]
@@ -99,11 +102,11 @@ with socket.socket() as sock:
                 display_recipient_bool = arrline3[1]
 
 
-            if "ZULIP156324" in data and old_text_zulip!=text:
+            if "ZULIP156324" in data and (old_text_zulip == None or not(text in old_text_zulip)):
                 l = len(data)
                 message_from_zulip = data[11:l]
                 l2 = len(message_from_zulip)
-                pos = message_from_vk.find("\n")
+                pos = message_from_zulip.find("\n")
                 old_text_zulip = message_from_zulip[pos+1:l2]
                 message_from_zulip = data[11:l]
                 if start is True and message_from_zulip[0] != '/':
@@ -121,18 +124,18 @@ with socket.socket() as sock:
                         and user_email_bool == 'False':
                     include_email = True
                     zulip_sender('Теперь в сообщении будет указываться email пользователя')
-                    with open("Settings.txt", "r") as f:
+                    with open("Data/Settings.txt", "r") as f:
                         all = f.read()
-                    with open("Settings.txt", "w") as f:
+                    with open("Data/Settings.txt", "w") as f:
                         all = all.replace("user_email_bool: False", "user_email_bool: True")
                         f.write(all)
                 elif start is True and ('/include subject true' in message_from_zulip) \
                         and subject_bool == 'False':
                     include_subject = True
                     zulip_sender('Теперь в сообщении будет указываться тема, из которой получено сообщение')
-                    with open("Settings.txt", "r") as f:
+                    with open("Data/Settings.txt", "r") as f:
                         all = f.read()
-                    with open("Settings.txt", "w") as f:
+                    with open("Data/Settings.txt", "w") as f:
                         all = all.replace("subject_bool: False", "subject_bool: True")
                         f.write(all)
                 elif start is True and ('/include display_recipient true' in message_from_zulip) \
@@ -140,48 +143,51 @@ with socket.socket() as sock:
                     include_display_recipient = True
                     zulip_sender(
                         'Теперь в сообщении будет указываться название канала, из которого получено сообщение')
-                    with open("Settings.txt", "r") as f:
+                    with open("Data/Settings.txt", "r") as f:
                         all = f.read()
-                    with open("Settings.txt", "w") as f:
+                    with open("Data/Settings.txt", "w") as f:
                         all = all.replace("display_recipient_bool: False", "display_recipient_bool: True")
                         f.write(all)
                 elif start is True and ('/include email False' in message_from_zulip) \
                         and user_email_bool == 'True':
-                    include_email = True
+                    include_email = False
                     zulip_sender('Теперь в сообщении не будет указываться email пользователя')
-                    with open("Settings.txt", "r") as f:
+                    with open("Data/Settings.txt", "r") as f:
                         all = f.read()
-                    with open("Settings.txt", "w") as f:
+                    with open("Data/Settings.txt", "w") as f:
                         all = all.replace("user_email_bool: True", "user_email_bool: False")
                         f.write(all)
                 elif start is True and ('/include subject false' in message_from_zulip) \
                         and subject_bool == 'True':
-                    include_subject = True
+                    include_subject = False
                     zulip_sender('Теперь в сообщении не будет указываться тема, из которой получено сообщение')
-                    with open("Settings.txt", "r") as f:
+                    with open("Data/Settings.txt", "r") as f:
                         all = f.read()
-                    with open("Settings.txt", "w") as f:
+                    with open("Data/Settings.txt", "w") as f:
                         all = all.replace("subject_bool: True", "subject_bool: False")
                         f.write(all)
                 elif start is True and ('/include display_recipient false' in message_from_zulip) \
                         and display_recipient_bool == 'True':
-                    include_display_recipient = True
+                    include_display_recipient = False
                     zulip_sender(
                         'Теперь в сообщении не будет указываться название канала, из которого получено сообщение')
-                    with open("Settings.txt", "r") as f:
+                    with open("Data/Settings.txt", "r") as f:
                         all = f.read()
-                    with open("Settings.txt", "w") as f:
+                    with open("Data/Settings.txt", "w") as f:
                         all = all.replace("display_recipient_bool: True", "display_recipient_bool: False")
                         f.write(all)
 
 
-            if "VK156324" in data and old_text_vk != text:
+            if "VK156324" in data and (old_text_vk == None or not(text in old_text_vk)):
                 l = len(data)
                 message_from_vk = data[8:l]
                 l2 = len(message_from_vk)
                 pos = message_from_vk.find("\n")
                 old_text_vk = message_from_vk[pos+1:l2]
+                print("message_from_vk: {}".format(message_from_vk))
+                print(user_email_bool)
                 if '/start' in message_from_vk and start is False:
+                    print(id_chat)
                     vk_sender(id_chat, 'Бот успешно запущен')
                     vk_sender(id_chat, "Чтобы узнать весь список команд бота напишите /help")
                     zulip_sender('Бот успешно запущен')
@@ -201,9 +207,9 @@ with socket.socket() as sock:
                         and user_email_bool == 'False':
                     include_email = True
                     vk_sender(id_chat, 'Теперь в сообщении будет указываться email пользователя')
-                    with open("Settings.txt", "r") as f:
+                    with open("Data/Settings.txt", "r") as f:
                         all = f.read()
-                    with open("Settings.txt", "w") as f:
+                    with open("Data/Settings.txt", "w") as f:
                         all = all.replace("user_email_bool: False", "user_email_bool: True")
                         f.write(all)
                 elif start is True and ('/include subject true' in message_from_vk) \
@@ -211,9 +217,9 @@ with socket.socket() as sock:
                     include_subject = True
                     vk_sender(id_chat,
                               'Теперь в сообщении будет указываться тема, из которой получено сообщение')
-                    with open("Settings.txt", "r") as f:
+                    with open("Data/Settings.txt", "r") as f:
                         all = f.read()
-                    with open("Settings.txt", "w") as f:
+                    with open("Data/Settings.txt", "w") as f:
                         all = all.replace("subject_bool: False", "subject_bool: True")
                         f.write(all)
                 elif start is True and ('/include display_recipient true' in message_from_vk) \
@@ -221,41 +227,38 @@ with socket.socket() as sock:
                     include_display_recipient = True
                     vk_sender(id_chat,
                               'Теперь в сообщении будет указываться название канала, из которого получено сообщение')
-                    with open("Settings.txt", "r") as f:
+                    with open("Data/Settings.txt", "r") as f:
                         all = f.read()
-                    with open("Settings.txt", "w") as f:
+                    with open("Data/Settings.txt", "w") as f:
                         all = all.replace("display_recipient_bool: False", "display_recipient_bool: True")
                         f.write(all)
                 elif start is True and ('/include email false' in message_from_vk) \
                         and user_email_bool == 'True':
-                    include_email = True
+
+                    include_email = False
                     vk_sender(id_chat, 'Теперь в сообщении не будет указываться email пользователя')
-                    with open("Settings.txt", "r") as f:
+                    with open("Data/Settings.txt", "r") as f:
                         all = f.read()
-                    with open("Settings.txt", "w") as f:
+                    with open("Data/Settings.txt", "w") as f:
                         all = all.replace("user_email_bool: True", "user_email_bool: False")
                         f.write(all)
                 elif start is True and ('/include subject false' in message_from_vk) \
                         and subject_bool == 'True':
-                    include_subject = True
+                    include_subject = False
                     vk_sender(id_chat,
                               'Теперь в сообщении не будет указываться тема, из которой получено сообщение')
-                    with open("Settings.txt", "r") as f:
+                    with open("Data/Settings.txt", "r") as f:
                         all = f.read()
-                    with open("Settings.txt", "w") as f:
+                    with open("Data/Settings.txt", "w") as f:
                         all = all.replace("subject_bool: True", "subject_bool: False")
                         f.write(all)
                 elif start is True and ('/include display_recipient false' in message_from_vk) \
                         and display_recipient_bool == 'True':
-                    include_display_recipient = True
+                    include_display_recipient = False
                     vk_sender(id_chat,
                               'Теперь в сообщении не будет указываться название канала, из которого получено сообщение')
-                    with open("Settings.txt", "r") as f:
+                    with open("Data/Settings.txt", "r") as f:
                         all = f.read()
-                    with open("Settings.txt", "w") as f:
+                    with open("Data/Settings.txt", "w") as f:
                         all = all.replace("display_recipient_bool: True", "display_recipient_bool: False")
                         f.write(all)
-
-
-
-
