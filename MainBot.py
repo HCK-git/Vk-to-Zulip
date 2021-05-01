@@ -46,7 +46,7 @@ from subprocess import Popen
 Popen('python Zulip_getter.py')
 Popen('python VK_getter.py')
 
-
+print("Started")
 
 main_token, id_group, way_to_config = file_read()
 
@@ -74,7 +74,7 @@ help_message = "/start - запускает бота\n" \
 
 with open("Data/id_chat.txt", "r") as f:
     id_chat = f.readline()
-
+    print(id_chat)
 with open("Data/Settings.txt", "w") as f:
     f.write("user_email_bool: False\n")
     f.write("subject_bool: False\n")
@@ -206,7 +206,10 @@ with socket.socket() as sock:
                 l2 = len(message_from_vk)
                 pos = message_from_vk.find("\n")
                 old_text_vk = message_from_vk[pos+1:l2]
+                print("message_from_vk: {}".format(message_from_vk))
+                print(user_email_bool)
                 if '/start' in message_from_vk and start is False:
+                    print(id_chat)
                     vk_sender(id_chat, 'Бот успешно запущен')
                     vk_sender(id_chat, "Чтобы узнать весь список команд бота напишите /help")
                     zulip_sender('Бот успешно запущен')
@@ -260,10 +263,6 @@ with socket.socket() as sock:
 
                 elif start is True and ('/include email false' in message_from_vk) \
                         and user_email_bool == 'True':
-<<<<<<< HEAD
-=======
-                    include_email = False
->>>>>>> 8dc5962a3cad9201f7b8b81ef4500db8f2f61ad9
                     vk_sender(id_chat, 'Теперь в сообщении не будет указываться email пользователя')
                     with open("Data/Settings.txt", "r") as f:
                         all = f.read()
