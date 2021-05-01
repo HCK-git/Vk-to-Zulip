@@ -41,14 +41,14 @@ def enter_data():
     print(id_group)
     print(way_to_file)
     print(type(token))
-    with open(os.getcwd() + "/Data/privat_inform.txt", "r") as f:
+    with open(os.getcwd() + "/Data/private_inform.txt", "r") as f:
         line = f.readline()
         line1 = line[:len(line)-1]
         line = f.readline()
         line2 = line[:len(line)-1]
         line = f.readline()
         line3 = line[:len(line)]
-    with open(os.getcwd()+"/Data/privat_inform.txt", "w") as f:
+    with open(os.getcwd()+"/Data/private_inform.txt", "w") as f:
         f.write(line1 + token + "\n" + line2 + id_group + "\n" + line3 + way_to_file)
 
         
@@ -71,7 +71,7 @@ save_file(link3, directory)
 os.mkdir('Data')
 make_file("Settings.txt", "user_email_bool: False\nsubject_bool: False\ndisplay_recipient_bool: False"
                           "\nid_vk_bool: False")
-make_file("privat_inform.txt", "token: \nid_group: \nway_to_config: ")
+make_file("private_inform.txt", "token: \nid_group: \nway_to_config: ")
 make_file("id_chat.txt", " ")
 
 root = Tk()
