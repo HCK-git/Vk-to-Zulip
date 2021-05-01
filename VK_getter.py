@@ -1,6 +1,7 @@
 import socket
 import vk_api
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
+from pprint import pprint
 
 
 def file_read():
@@ -37,6 +38,8 @@ def vk_getter(vk_id):
             user_id = event.message.get('from_id')
             message_vk = event.message.get('text')
             user = vk_session.method("users.get", {"user_ids": user_id})
+            url = "https://vk.com/id" + str(event.message.get('from_id'))
+            print(url)
             if message_vk[0] == '/':
                 message_from_vk = "VK156324"+message_vk
                 return message_from_vk
@@ -49,8 +52,13 @@ def vk_getter(vk_id):
                                                                                              user_id, message_vk))
             return message_from_vk
 
+<<<<<<< HEAD
 print("Started")
 main_token, id_group, way_to_config, id_vk = file_read()
+=======
+
+main_token, id_group, way_to_config = file_read()
+>>>>>>> 8dc5962a3cad9201f7b8b81ef4500db8f2f61ad9
 
 vk_session = vk_api.VkApi(token=main_token)
 

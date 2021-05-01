@@ -66,7 +66,7 @@ def zulip_getter():
     message_from_zulip += f' написал:\n{message}'
     return message_from_zulip
 
-print("Started")
+
 main_token, id_group, way_to_config = file_read()
 
 zulip_client = zulip.Client(config_file="{}".format(way_to_config))
@@ -80,4 +80,4 @@ while True:
         with socket.create_connection(("127.0.0.1", 10002)) as sock:
             sock.sendall(message_from_zulip.encode("utf8"))
         old_message_from_zulip = message_from_zulip
-        print(old_message_from_zulip)
+
