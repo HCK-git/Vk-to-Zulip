@@ -1,4 +1,0 @@
-user_email_bool: False
-subject_bool: False
-display_recipient_bool: False
-id_vk_bool: False

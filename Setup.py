@@ -47,7 +47,33 @@ def enter_data():
     with open(os.getcwd()+"/Data/private_inform.txt", "w") as f:
         f.write(line1 + token + "\n" + line2 + id_group + "\n" + line3 + way_to_file)
 
-        
+
+# def button_exit():
+#     root.destroy()
+#     exit()
+
+try:
+    os.mkdir('Data')
+except FileExistsError:
+    root = Tk()
+    root.title("WARNING")
+    w = root.winfo_screenwidth()
+    h = root.winfo_screenheight()
+    w = w // 2 - 150
+    h = h // 2 - 50
+    root.geometry('300x100+{}+{}'.format(w, h))
+    Label(text="Вы уже установили бота в эту папку", font=("Times New Roman", 12), width=50, height=3).pack()
+    button = Button(text="OK", width=20)
+
+
+    def button_exit(event):
+        root.destroy()
+        exit()
+    button.bind("<Button-1>", button_exit)
+    button.pack()
+    # Button(text="OK", width=20, command=button_exit()).pack()
+    root.mainloop()
+
 os.system("pip install tk")
 os.system("pip install requests")
 os.system("pip install vk_api")
@@ -64,7 +90,7 @@ way_to_file = "None"
 save_file(link1, directory)
 save_file(link2, directory)
 save_file(link3, directory)
-os.mkdir('Data')
+
 make_file("Settings.txt", "user_email_bool: False\nsubject_bool: False\ndisplay_recipient_bool: False\n"
                           "id_vk_bool: False")
 make_file("private_inform.txt", "token: \nid_group: \nway_to_config: ")
