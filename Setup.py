@@ -69,7 +69,8 @@ save_file(link1, directory)
 save_file(link2, directory)
 save_file(link3, directory)
 os.mkdir('Data')
-make_file("Settings.txt", "user_email_bool: False\nsubject_bool: False\ndisplay_recipient_bool: False")
+make_file("Settings.txt", "user_email_bool: False\nsubject_bool: False\ndisplay_recipient_bool: False"
+                          "\nid_vk_bool: False")
 make_file("privat_inform.txt", "token: \nid_group: \nway_to_config: ")
 make_file("id_chat.txt", " ")
 
@@ -77,9 +78,9 @@ root = Tk()
 root.title("token")
 w = root.winfo_screenwidth()
 h = root.winfo_screenheight()
-w = w // 2 - 200
-h = h // 2 - 200
-root.geometry('400x400+{}+{}'.format(w, h))
+w = w // 2 - 100
+h = h // 2 - 100
+root.geometry('200x200+{}+{}'.format(w, h))
 entry = Entry()
 entry.pack(pady=10)
 Button(text="Ввести", command=get_token).pack()
@@ -89,7 +90,7 @@ root.mainloop()
 
 root = Tk()
 root.title("id_group")
-root.geometry('400x400+{}+{}'.format(w, h))
+root.geometry('200x200+{}+{}'.format(w, h))
 entry = Entry()
 entry.pack(pady=10)
 Button(text="Ввести", command=get_id_group).pack()
@@ -99,7 +100,7 @@ root.mainloop()
 
 root = Tk()
 root.title("way_to_file")
-root.geometry('400x400+{}+{}'.format(w, h))
+root.geometry('200x200+{}+{}'.format(w, h))
 entry = Entry()
 entry.pack(pady=10)
 Button(text="Ввести", command=get_way_to_file).pack()

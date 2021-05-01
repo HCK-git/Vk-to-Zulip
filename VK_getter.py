@@ -16,10 +16,13 @@ def file_read():
         line3 = f.readline()
         arrline3 = line3.split()
         way_to_config_from_file = arrline3[1]
-        return main_token_from_file, id_group_from_file, way_to_config_from_file
+        line4 = f.readline()
+        arrline4 = line4.split()
+        id_vk_from_file = arrline4[1]
+        return main_token_from_file, id_group_from_file, way_to_config_from_file, id_vk_from_file
 
 
-def vk_getter():
+def vk_getter(vk_id):
     """функция vk_getter получает сообщение из бесед социальной сети Вконтакте,
        в которых состоит бот, возвращая строку вида
        "Пользователь <имя пользователя> написал:
@@ -37,11 +40,17 @@ def vk_getter():
             if message_vk[0] == '/':
                 message_from_vk = "VK156324"+message_vk
                 return message_from_vk
-            message_from_vk = ("VK156324Пользователь {} {} написал:\n{}".format(user[0]['last_name'], user[0]['first_name'], message_vk))
+            if vk_id == 'False':
+                message_from_vk = ("VK156324Пользователь {} {} написал:\n{}".format(user[0]['last_name'],
+                                                                                user[0]['first_name'], message_vk))
+            else:
+                message_from_vk = ("VK156324Пользователь {} {} (id: {}) написал:\n{}".format(user[0]['last_name'],
+                                                                                             user[0]['first_name'],
+                                                                                             user_id, message_vk))
             return message_from_vk
 
 print("Started")
-main_token, id_group, way_to_config = file_read()
+main_token, id_group, way_to_config, id_vk = file_read()
 
 vk_session = vk_api.VkApi(token=main_token)
 
