@@ -54,6 +54,7 @@ def vk_getter():
                                                                                              user_id, message_vk))
             return message_from_vk
 
+
 print("Started")
 main_token, id_group, way_to_config = file_read()
 

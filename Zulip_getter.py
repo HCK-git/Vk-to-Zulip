@@ -3,6 +3,7 @@ import zulip
 from typing import Any, Dict
 import time
 
+
 def file_read():
     """"Функция file_read получает информацию из файла private_inform"""
 
@@ -54,7 +55,7 @@ def zulip_getter():
     if message[0] == ' ':
         message = message[1:len(message)]
     if message[0] == '/':
-        message_from_zulip ="ZULIP156324"+message
+        message_from_zulip = "ZULIP156324"+message
         return message_from_zulip
     message_from_zulip = ('ZULIP156324Пользователь {}'.format(user_name))
     if user_email_bool == 'True':
@@ -65,6 +66,7 @@ def zulip_getter():
         message_from_zulip += f', канал "{display_recipient}",'
     message_from_zulip += f' написал:\n{message}'
     return message_from_zulip
+
 
 print("Started")
 main_token, id_group, way_to_config = file_read()

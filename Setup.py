@@ -66,12 +66,11 @@ except FileExistsError:
     button = Button(text="OK", width=20)
 
 
-    def button_exit(event):
+    def button_exit():
         root.destroy()
         exit()
     button.bind("<Button-1>", button_exit)
     button.pack()
-    # Button(text="OK", width=20, command=button_exit()).pack()
     root.mainloop()
 
 os.system("pip install tk")
