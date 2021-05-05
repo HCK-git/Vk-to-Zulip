@@ -66,7 +66,7 @@ except FileExistsError:
     button = Button(text="OK", width=20)
 
 
-    def button_exit():
+    def button_exit(event):
         root.destroy()
         exit()
     button.bind("<Button-1>", button_exit)
