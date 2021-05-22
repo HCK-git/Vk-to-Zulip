@@ -1,6 +1,13 @@
-from tkinter import *
 import os
+
+os.system("pip install tk")
+os.system("pip install requests")
+os.system("pip install vk_api")
+os.system("pip install zulip")
+
+
 import requests
+from tkinter import *
 
 
 def save_file(url, dir):
@@ -73,10 +80,7 @@ except FileExistsError:
     button.pack()
     root.mainloop()
 
-os.system("pip install tk")
-os.system("pip install requests")
-os.system("pip install vk_api")
-os.system("pip install zulip")
+
 
 link1 = "https://raw.githubusercontent.com/HCK-git/Vk-to-Zulip/main/MainBot.py"
 link2 = "https://raw.githubusercontent.com/HCK-git/Vk-to-Zulip/main/VK_getter.py"

@@ -82,4 +82,3 @@ while True:
         with socket.create_connection(("127.0.0.1", 10002)) as sock:
             sock.sendall(message_from_zulip.encode("utf8"))
         old_message_from_zulip = message_from_zulip
-        print(old_message_from_zulip)

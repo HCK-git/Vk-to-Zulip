@@ -108,7 +108,6 @@ with socket.socket() as sock:
 
             with open("Data/id_chat.txt", "r") as f:
                 id_chat = f.readline()
-                print(id_chat)
 
             if "ZULIP156324" in data and (old_text_zulip is None or not(text in old_text_zulip)):
                 length_data = len(data)
@@ -224,10 +223,7 @@ with socket.socket() as sock:
                 l2 = len(message_from_vk)
                 pos = message_from_vk.find("\n")
                 old_text_vk = message_from_vk[pos+1:l2]
-                print("message_from_vk: {}".format(message_from_vk))
-                print(user_email_bool)
                 if '/start' in message_from_vk and start is False:
-                    print(id_chat)
                     vk_sender(id_chat, 'Бот успешно запущен')
                     vk_sender(id_chat, "Чтобы узнать весь список команд бота напишите /help")
                     zulip_sender('Бот успешно запущен')

@@ -44,7 +44,6 @@ def vk_getter():
             if message_vk[0] == '/':
                 message_from_vk = "VK156324"+message_vk
                 return message_from_vk
-            print("vk_id: ", vk_id)
             if vk_id == 'False':
                 message_from_vk = ("VK156324Пользователь {} {} написал:\n{}".format(user[0]['last_name'],
                                                                                     user[0]['first_name'], message_vk))
