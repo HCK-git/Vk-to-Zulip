@@ -50,9 +50,11 @@ with open("Data/Settings.txt", "w") as f:
     f.write("id_vk_bool: False\n")
 
 main_token, id_group, way_to_config = file_read()
+# запуск файлов Zulip_getter.py и VK_getter.py
 Popen('python Zulip_getter.py')
 Popen('python VK_getter.py')
 
+# подключение чатов zulip и Вконтакте
 zulip_client = zulip.Client(config_file="{}".format(way_to_config))
 vk_session = vk_api.VkApi(token=main_token)
 longpoll = VkBotLongPoll(vk_session, id_group)
@@ -76,22 +78,27 @@ help_message = "/start - запускает бота\n" \
                "/include id true(false) - добавление в сообщение id пользователя Вконтакте\n" \
                "/status - отображение статуса настроек\n"
 
+# создание сокета
 with socket.socket() as sock:
     sock.bind(("127.0.0.1", 10002))
     sock.listen()
 
+# тело основного цикла с обработкой полученных сообщений
     while stop:
         conn, addr = sock.accept()
         with conn:
+            # получение данных из программ Zulip_getter.py и VK_getter.py
             data = conn.recv(1024)
             data = data.decode("utf8")
 
+            # выделение текста из всего сообщения
             length = len(data)
             position = data.find('\n')
             if not('\n' in data):
                 position = data.find('4')
             text = data[position+1:length]
 
+            # чтение настроек из файла
             with open("Data/Settings.txt", "r") as f:
                 line1 = f.readline()
                 arrline1 = line1.split()
@@ -105,10 +112,11 @@ with socket.socket() as sock:
                 line4 = f.readline()
                 arrline4 = line4.split()
                 id_vk_bool = arrline4[1]
-
+            # чтение id из файла
             with open("Data/id_chat.txt", "r") as f:
                 id_chat = f.readline()
 
+            # обработка сообщения из Zulip
             if "ZULIP156324" in data and (old_text_zulip is None or not(text in old_text_zulip)):
                 length_data = len(data)
                 message_from_zulip = data[11:length_data]
@@ -217,6 +225,7 @@ with socket.socket() as sock:
                         all_text = all_text.replace("id_vk_bool: True", "id_vk_bool: False")
                         f.write(all_text)
 
+            # обработка сообщения из Вконтакте
             if "VK156324" in data and (old_text_vk is None or not(text in old_text_vk)):
                 length_data = len(data)
                 message_from_vk = data[8:length_data]

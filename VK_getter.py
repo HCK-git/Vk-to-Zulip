@@ -38,9 +38,10 @@ def vk_getter():
             id_chat = event.chat_id
             with open("Data/id_chat.txt", "w") as f:
                 f.write(str(id_chat))
-            user_id = event.message.get('from_id')
-            message_vk = event.message.get('text')
+            user_id = event.message.get('from_id') # получение айди пользователя, отправившего сообщение
+            message_vk = event.message.get('text') # получение текста сообщения
             user = vk_session.method("users.get", {"user_ids": user_id})
+            # формирование текста сообщения для пересылки
             if message_vk[0] == '/':
                 message_from_vk = "VK156324"+message_vk
                 return message_from_vk
@@ -55,6 +56,7 @@ def vk_getter():
 
 
 print("Started")
+# подключение к боту Вконтакте
 main_token, id_group, way_to_config = file_read()
 
 vk_session = vk_api.VkApi(token=main_token)
@@ -63,6 +65,7 @@ longpoll = VkBotLongPoll(vk_session, id_group)
 
 old_message_from_vk = None
 
+# основной цикл программы
 while True:
     message_from_vk = vk_getter()
     if message_from_vk != old_message_from_vk:

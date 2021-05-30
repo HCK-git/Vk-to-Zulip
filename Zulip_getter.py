@@ -43,6 +43,7 @@ def zulip_getter():
         'num_after': 0
     }
 
+    # получение информации о сообщение
     res = zulip_client.get_messages(request)
     message = res['messages'][0]['content']
     user_name = res['messages'][0]['sender_full_name']
@@ -52,6 +53,7 @@ def zulip_getter():
     s = message.find('</span>')
     e = message.find('</p>')
     message = message[s + 8:e].replace('<br>', '')
+    # формирование текста сообщения для пересылки
     if message[0] == ' ':
         message = message[1:len(message)]
     if message[0] == '/':
@@ -69,12 +71,14 @@ def zulip_getter():
 
 
 print("Started")
+# подключение к боту Вконтакте
 main_token, id_group, way_to_config = file_read()
 
 zulip_client = zulip.Client(config_file="{}".format(way_to_config))
 
 old_message_from_zulip = zulip_getter()
 
+# основной цикл программы
 while True:
     time.sleep(2)
     message_from_zulip = zulip_getter()
